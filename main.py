@@ -40,7 +40,7 @@ def get_vector_store(text_chunks, model_name, api_key=None):
 def get_conversational_chain(model_name, vector_store=None, api_key=None):
     if model_name == "Google AI":
         prompt_template = """
-            Answer the question from the provided context. Make sure to answer the question based on the context provided. If the answer is not in the context provided, then say that ```You don't know the answer.``` 
+            Answer the question from the provided context. Make sure to answer the question based on the context provided. If the answer is not in the context provided, then say that ```I don't know the answer.``` 
             context: {context}
             question: {question}
             
@@ -124,7 +124,7 @@ def user_input(user_question, model_name, api_key, pdf_docs, conversation_histor
                 file_name="conversation_history.csv",
                 mime="text/csv",
             )
-        st.success("Question answered successfully!")
+            st.toast("Question answered successfully! ✅")
 
 
 # main Entry point function
