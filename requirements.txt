@@ -1,0 +1,32 @@
+# Core LLM & RAG
+langchain>=0.2.0
+langchain-google-genai
+langchain-community
+faiss-cpu
+
+# API & Server
+fastapi>=0.110
+uvicorn
+python-multipart # Required for FastAPI file uploads
+
+# Frontend
+streamlit>=1.30
+
+# Document Processing
+pypdf2
+pdfplumber
+unstructured # For complex/scanned PDFs
+
+# Utilities
+python-dotenv
+tiktoken # Token counting
+
+# Evaluation
+ragas
+
+# Testing
+pytest
+httpx # For async FastAPI test client
+
+#other
+ipykernel
