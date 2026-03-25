@@ -330,5 +330,4 @@ faiss_index/
 __pycache__/
 *.pyc
 .DS_Store
-
 # End of https://www.toptal.com/developers/gitignore/api/python,node,git

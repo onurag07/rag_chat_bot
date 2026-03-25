@@ -30,3 +30,6 @@ httpx # For async FastAPI test client
 
 #other
 ipykernel
+pandas
+pypdf2
+python-dotenv
