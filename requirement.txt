@@ -1,0 +1,25 @@
+# Core AI & RAG libraries
+langchain
+langchain-google-genai
+langchain-community
+faiss-cpu
+
+# API server
+fastapi
+uvicorn
+python-multipart
+
+# Frontend UI
+streamlit
+
+# PDF reading
+pypdf2
+pdfplumber
+unstructured
+
+# Utilities
+python-dotenv
+tiktoken
+ragas
+pytest
+httpx

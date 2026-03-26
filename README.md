@@ -1,84 +1,101 @@
-# RAG Chatbot with Google Generative AI
+# 🤖 RAG Chatbot: PDF Q&A with Gemini & FAISS
 
-A robust Retrieval-Augmented Generation (RAG) chatbot designed to chat with multiple PDF documents simultaneously using Google's Gemini models and FastAPI/Streamlit integration. It uses the `gemini-2.5-flash` language model and `gemini-embedding-001` for accurate, context-aware information retrieval.
+An end-to-end Retrieval-Augmented Generation (RAG) Chatbot application that allows users to upload PDF documents and ask questions about them. Built with FastAPI for the backend API and Streamlit for the visual chat interface.
 
-## Features
+The bot uses the Google GenAI Gemini model for answering questions and Google's embedding models for text vectorization, stored locally in a FAISS index.
 
-- **Multi-PDF Support:** Upload and process multiple PDF files at the same time.
-- **Google GenAI Integration:** Leverages cutting-edge Google Gemini LLM for precise question-answering.
-- **FAISS Vector Store:** Fast and efficient localized similarity search for document embeddings.
-- **Conversation History:** Tracks your conversation context across multiple questions, and allows you to download your chat history as a CSV file.
-- **Dynamic Streamlit UI:** Features a fluid, easy-to-use left-hand sidebar menu, custom-styled Chat Messages without dark mode clashes, and real-time processing indicators.
-
-## Prerequisites
-
-Before starting, ensure you have the following installed:
-- Python 3.10 or higher
-- `pip` package manager
-- A [Google API Key](https://ai.google.dev/) initialized for your Generative Language API project.
-
-## Installation Guide
-
-Follow these steps to set up the project locally:
-
-1. **Clone the repository (if applicable)**
-   ```bash
-   git clone <your-repo-link>
-   cd rag_chat_bot
-   ```
-
-2. **Create and Activate a Virtual Environment**
-   It's highly recommended to use a virtual environment to manage dependencies locally.
-   ```bash
-   # Create virtual environment
-   python3 -m venv venv
-   
-   # Activate it (Linux/MacOS)
-   source venv/bin/activate
-   
-   # Activate it (Windows PowerShell)
-   .\venv\Scripts\Activate.ps1
-   ```
-
-3. **Install Dependencies**
-   Install all the required Python packages from the `requirements.txt`.
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-## Running the Application
-
-Because this application relies on Streamlit to render its User Interface, you **must** use the `streamlit run` command (do not use default `python main.py`, it will not work).
-
-Make sure your virtual environment is still activated:
-
-```bash
-# Start the Streamlit application
-streamlit run main.py
-```
-
-The terminal will provide a local URL (e.g., `http://localhost:8501`). Open this URL in your browser to access the application.
-
-## How to Use
-
-1. **Sidebar Controls:** Enter or confirm your Google API Key if prompted.
-2. **Upload Documents:** Under the Menu, upload one or more PDF documents you wish to query.
-3. **Submit & Process:** Click the "Submit & Process" button to generate text embeddings and save the FAISS vector index locally.
-4. **Chat!:** Use the text input box at the bottom to ask questions specific to the uploaded documents. The chatbot will only answer based strictly on the provided context!
-5. **Manage History:** You can clear your session by clicking "Reset" or download the history to a CSV file when needed.
-
-## Troubleshooting
-
-- **404 Embedding NOT FOUND Error:** If you face model existence errors, double-check your Google API Key's endpoint permissions. This bot defaults to `models/gemini-embedding-001` or `models/text-embedding-004` based on API capability.
-- **Streamlit ScriptRunContext Missing:** Always run the app using `streamlit run main.py`. Executing it with `python main.py` causes threading conflicts and will not load the UI.
-- **Pydantic Validation Errors:** Our repository supports the latest `langchain-google-genai` parameters cleanly. Ensure your pip dependencies match the `requirements.txt`.
+## 🌟 Features
+- **Upload & Parse PDFs**: Easily extract and chunk text from any PDF document.
+- **Conversational Memory**: The bot remembers the last 5 turns of your conversation for contextual follow-up questions.
+- **Modern RAG Architecture**: Uses LangChain (v1.x classic components like `ConversationalRetrievalChain`), FAISS vector store, and Google Gemini models.
+- **Interactive Web Interface**: A clean, responsive Streamlit UI for uploading files and chatting.
+- **Source Citations**: Answers include page numbers and text snippets from the original document so you can verify the information.
 
 ---
 
-## Author
+## 🛠️ Technology Stack
+- **Backend API**: [FastAPI](https://fastapi.tiangolo.com/), Uvicorn
+- **Frontend / UI**: [Streamlit](https://streamlit.io/)
+- **LLM & Embeddings**: [Google Generative AI](https://aistudio.google.com/) (Gemini 2.5 Flash, Gemini Embedding 001)
+- **Vector Database**: [FAISS](https://github.com/facebookresearch/faiss) (Local CPU installation)
+- **Orchestration**: [LangChain](https://python.langchain.com/) / LangChain Classic
 
-Developed by **Anurag Kumar Yadav**
+---
 
-- 📧 **Email:** mranurag101@gmail.com
-- 💼 **LinkedIn:** [Anurag Kumar Yadav](https://www.linkedin.com/in/anurag-kumar-yadav-b3b861125)
-- 🐙 **GitHub:** [@onurag07](https://github.com/onurag07)
+## 🚀 From Zero to Full Setup
+
+Follow these steps to get the application running locally on your machine.
+
+### 1. Prerequisites
+- **Python 3.10+** installed on your system.
+- A **Google Gemini API Key**. You can get one for free from [Google AI Studio](https://aistudio.google.com/).
+
+### 2. Clone the Repository & Setup Environment
+Open your terminal and create a virtual environment:
+```bash
+# Clone the repository (if applicable)
+git clone <repository_url>
+cd rag_chat_bot
+
+# Create a virtual environment
+python3 -m venv venv
+
+# Activate the virtual environment
+# On Linux/macOS:
+source venv/bin/activate
+# On Windows:
+# venv\Scripts\activate
+```
+
+### 3. Install Dependencies
+Install all the required Python packages from the `requirement.txt` file:
+```bash
+pip install -r requirement.txt
+```
+
+### 4. Setup Environment Variables
+Create a file named `.env` in the root directory (where `main.py` is located) and add your Google API Key:
+```env
+GOOGLE_API_KEY=your_google_api_key_here
+```
+
+### 5. Start the Backend Server (FastAPI)
+Run the backend web server with `uvicorn`:
+```bash
+uvicorn app.main:app --reload --port 8000
+```
+*The API will be available at `http://localhost:8000`.*
+
+### 6. Start the Frontend App (Streamlit)
+Open a **new terminal window** (don't forget to activate your virtual environment `source venv/bin/activate` again!), and run the visual interface:
+```bash
+streamlit run frontend/streamlit_app.py
+```
+*Your browser will automatically open the web UI at `http://localhost:8501`, where you can upload your PDFs and start chatting!*
+
+---
+
+## 📁 Project Structure
+```text
+rag_chat_bot/
+├── app/
+│   ├── main.py           # FastAPI backend endpoints (/upload, /ask)
+│   ├── rag_pipeline.py   # PDF loading, chunking, and FAISS vector store logic
+│   ├── chains.py         # LangChain LLM setup and Q&A chain creation
+│   └── memory.py         # Conversational buffer memory to track history
+├── frontend/
+│   └── streamlit_app.py  # Visual web UI using Streamlit
+├── data/                 # Temporary storage for uploaded PDFs
+├── faiss_index/          # Local storage for the generated vector database
+├── requirement.txt       # All Python dependencies
+└── .env                  # Environment variables (API Keys)
+```
+
+---
+
+## 👨‍💻 Author & Details
+
+**Anurag Kumar Yadav**  
+Backend Developer transitioning into AI Engineering. Passionate about building intelligent, agentic systems, automating workflows, and multi-agent architectures using modern tech stacks.
+
+🔗 **Connect with me on LinkedIn:** [Anurag Kumar Yadav](https://www.linkedin.com/in/anurag-kumar-yadav-b3b861125)
